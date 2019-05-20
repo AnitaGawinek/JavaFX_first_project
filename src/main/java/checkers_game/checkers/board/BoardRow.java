@@ -1,4 +1,4 @@
-package checkers_game.checkers;
+package checkers_game.checkers.board;
 
 import checkers_game.checkers.figures.Figure;
 import checkers_game.checkers.figures.FigureColor;
@@ -14,7 +14,6 @@ public class BoardRow {
         for(int n = 0; n < 8; ++n) {
             cols.add(new Figure(FigureColor.NONE, FigureType.NONE));
         }
-
     }
 
     public List<Figure> getCols() {
