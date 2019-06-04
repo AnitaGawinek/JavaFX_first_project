@@ -22,6 +22,7 @@ public class CheckersBoard {
     private int opponentToRemoveRow = -1;
     private int whitePawnsCount = 12;
     private int blackPawnsCount = 12;
+    private boolean ai = false;
 
     public CheckersBoard() {
         for(int n = 0; n < 8; ++n) {
@@ -56,7 +57,7 @@ public class CheckersBoard {
         rows.get(row).getCols().add(col, figure);
         rows.get(row).getCols().remove(col + 1);
     }
-    private void setClickedColAndRow(int col, int row){
+    public void setClickedColAndRow(int col, int row){
         this.clickedCol = col;
         this.clickedRow = row;
     }
@@ -77,7 +78,7 @@ public class CheckersBoard {
         Figure figure = getFigure(col, row);
         return !(figure.isQueen()) && figure.getColor() == BLACK && row == 6 || !(figure.isQueen()) && figure.getColor() == WHITE && row == 1;
     }
-    private void move(int newCol, int newRow) {
+    public void move(int newCol, int newRow) {
         if (isMoveAllowed(clickedCol, clickedRow, newCol, newRow)) {
             Figure selectedFigure = getFigure(clickedCol, clickedRow);
             setFigure(newCol, newRow, selectedFigure);
@@ -105,21 +106,24 @@ public class CheckersBoard {
                 whoWins();
             }
             whoseMove = oppositeColor(whoseMove);
-            if (whoseMove.equals(BLACK) && ai()) {
+            if (whoseMove.equals(BLACK) && ai) {
                 doComputerMove();
             }
         }
     }
 
     private void doComputerMove() {
-        Move move = computer.createMove();
-        clickedCol = move.getX1();
-        clickedRow = move.getY1();
-        move(move.getX2(), move.getY2());
+        Computer computer = new Computer(this);
+        computer.createMove();
+//        Move move = computer.createMove();
+//        clickedCol = move.getX1();
+//        clickedRow = move.getY1();
+//        move(move.getX2(), move.getY2());
+        System.out.println("AI");
     }
 
-    private boolean ai() {
-        return true;
+    public void setAi(boolean userChoice) {
+        this.ai = userChoice;
     }
 
     private boolean isGameEnds(){
