@@ -4,7 +4,6 @@ import checkers_game.Computer;
 import checkers_game.checkers.figures.Figure;
 import checkers_game.checkers.figures.FigureColor;
 import checkers_game.checkers.figures.FigureType;
-import checkers_game.checkers.moves.Move;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -115,10 +114,6 @@ public class CheckersBoard {
     private void doComputerMove() {
         Computer computer = new Computer(this);
         computer.createMove();
-//        Move move = computer.createMove();
-//        clickedCol = move.getX1();
-//        clickedRow = move.getY1();
-//        move(move.getX2(), move.getY2());
         System.out.println("AI");
     }
 
