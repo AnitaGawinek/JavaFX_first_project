@@ -2,25 +2,13 @@ package checkers_game;
 
 import checkers_game.checkers.board.CheckersBoard;
 import checkers_game.checkers.figures.Figure;
-import checkers_game.checkers.figures.FigureColor;
-import checkers_game.checkers.figures.FigureType;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundImage;
-import javafx.scene.layout.BackgroundPosition;
-import javafx.scene.layout.BackgroundRepeat;
-import javafx.scene.layout.BackgroundSize;
-import javafx.scene.layout.ColumnConstraints;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.RowConstraints;
+import javafx.scene.layout.*;
 import javafx.stage.Stage;
-
-import static checkers_game.checkers.figures.FigureColor.WHITE;
 
 public class GUI {
     private Image backgroundImg = new Image("board/Background&board.jpg");
@@ -29,7 +17,6 @@ public class GUI {
     private int heightOfCell = 70;
     private int heightOfBackground = 224;
     private int widthOfBackground = 130;
-    private FigureColor color;
     private CheckersBoard checkersBoard;
     private Stage stage;
 

@@ -7,7 +7,9 @@ import checkers_game.checkers.figures.FigureType;
 
 import java.util.ArrayList;
 import java.util.List;
-import static checkers_game.checkers.figures.FigureColor.*;
+
+import static checkers_game.checkers.figures.FigureColor.BLACK;
+import static checkers_game.checkers.figures.FigureColor.WHITE;
 import static checkers_game.checkers.figures.FigureType.NONE;
 import static checkers_game.checkers.figures.FigureType.PAWN;
 
@@ -69,7 +71,13 @@ public class CheckersBoard {
                     getFigure(col, row).setIsSelected(true);
                 }
             } else {
-                move(col, row);
+                if (getFigure(col, row).getType() != NONE) {
+                    getFigure(clickedCol, clickedRow).setIsSelected(false);
+                    setClickedColAndRow(-1, -1);
+
+                } else {
+                    move(col, row);
+                }
             }
         }
     }
@@ -77,16 +85,17 @@ public class CheckersBoard {
         Figure figure = getFigure(col, row);
         return !(figure.isQueen()) && figure.getColor() == BLACK && row == 6 || !(figure.isQueen()) && figure.getColor() == WHITE && row == 1;
     }
+
     public void move(int newCol, int newRow) {
         if (isMoveAllowed(clickedCol, clickedRow, newCol, newRow)) {
             Figure selectedFigure = getFigure(clickedCol, clickedRow);
             setFigure(newCol, newRow, selectedFigure);
             setFigure(clickedCol, clickedRow, new Figure(FigureColor.NONE, FigureType.NONE));
-            if (newRow == 7){
-                selectedFigure.changeBlackPawnToQueen();
-            } else if (newRow == 0){
-                selectedFigure.changeWhitePawnToQueen();
-            }
+//            if (newRow == 7){
+//                selectedFigure.changeBlackPawnToQueen();
+//            } else if (newRow == 0){
+//                selectedFigure.changeWhitePawnToQueen();
+//            }
             setClickedColAndRow(-1, -1);
             selectedFigure.setIsSelected(false);
             if (opponentToRemoveCol != -1) {
@@ -121,11 +130,11 @@ public class CheckersBoard {
         this.ai = userChoice;
     }
 
-    private boolean isGameEnds(){
+    private boolean isGameEnds() {
         return whitePawnsCount == 0 || blackPawnsCount == 0;
     }
 
-    private void whoWins(){
+    private void whoWins() {
         if (whitePawnsCount == 0){
             System.out.println("Black pawns wins");
         } else {
@@ -207,19 +216,19 @@ public class CheckersBoard {
 //
 //    }
     private boolean isJumpOverMove(int col1, int row1, int col2, int row2) {
-        if (col1 > col2){
-            if (row1 > row2){
+        if (col1 > col2) {
+            if (row1 > row2) {
                 return (row1 == row2 + 2) && (col1 == col2 +2);
+
             } else {
                 return (row2 == row1 + 2) && (col1 == col2 +2);
             }
-        } else{
-            if (row1 > row2){
+        } else if (row1 > row2){
                 return (row1 == row2 + 2) && (col2 == col1 +2);
-            } else{
+
+            } else {
                 return (row2 == row1 + 2) && (col2 == col1 +2);
             }
-        }
     }
 
     private boolean correctPlayerTriesToMove(int col, int row) {
@@ -234,7 +243,8 @@ public class CheckersBoard {
     private boolean checkClickedElement(){
         return getClickedCol() == -1 && getClickedRow() == -1;
     }
-    private boolean checkPawnPresentAndColor(int col, int row){
+
+    private boolean checkPawnPresentAndColor(int col, int row) {
         Figure figure = getFigure(col, row);
         return figure.isPresent() && checkMove(figure);
     }
